@@ -51,7 +51,7 @@ class Dog(pygame.sprite.Sprite):    #Objekt Dog
         self.settings = settings
         self.pygame = pygame
         self.image = pygame.image.load(os.path.join(self.settings.images_path, "doggo.png")).convert_alpha() #das bmp für den Hund wird reinimportiert
-        self.image = pygame.transform.scale(self.image, (55, 30))   #Größe des Bildes
+        self.image = pygame.transform.scale(self.image, (110, 60))   #Größe des Bildes
         self.rect = self.image.get_rect()
         self.rect.left = (settings.width - self.rect.width) // 2    #Diese und die nächste Zeile sind dafür zuständig, dass das bmp mittig zentriert ist
         self.rect.top = settings.height - self.rect.height - 10
