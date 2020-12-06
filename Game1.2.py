@@ -1,7 +1,7 @@
 import pygame   #importiert die Pygamme Bibliothek in das Skript   
 import os   
 from pygame.constants import (QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_SPACE)  #importiert bestimmte Konstanten aus dem OS Modul in das Skript
-import random
+import random   #random Modul für die SPACE-Funktion importieren
 
 class Settings(object):
     def __init__(self):
@@ -14,8 +14,6 @@ class Settings(object):
 
     def get_dim(self):
         return (self.width, self.height)    #gibt die Breite x Höhe zurück
-
-
 
 class Dog(pygame.sprite.Sprite):    #Objekt Dog
     def __init__(self, settings):
@@ -30,16 +28,12 @@ class Dog(pygame.sprite.Sprite):    #Objekt Dog
         self.direction = 0
         self.direction2 = 0
         self.speed = 5
-        
 
-        
-
-    def update(self):
+    def update(self):   #update ist für die Steuerung notwendig
         newleft = self.rect.left + (self.direction * self.speed)
         newright = newleft + self.rect.width
         newtop = self.rect.top + (self.direction2 * self.speed)
         newbottom = newtop + self.rect.height
-        direction3 = 0
         
         if newleft > 0 and newright < settings.width:
             self.rect.left = newleft
@@ -67,27 +61,27 @@ class Game(object):
             for event in self.pygame.event.get():   
                 if event.type == QUIT:   
                     self.done = True 
-                elif event.type == KEYDOWN:
+                elif event.type == KEYDOWN: #Absatz: Beim drücken von ESC Spiel beenden  
                     if event.key == K_ESCAPE:
                         self.done = True
                     
-                    elif event.key == K_LEFT:
+                    elif event.key == K_LEFT:   #Absatz: Steuerung horizontal
                         self.dog.direction = -1
                     elif event.key == K_RIGHT:
                         self.dog.direction = 1
                    
-                    elif event.key == K_UP:
+                    elif event.key == K_UP: #Absatz: Steuerung vertikal
                         self.dog.direction2 = -1
                     elif event.key == K_DOWN:
                         self.dog.direction2 = 1
 
-                elif event.type == KEYUP:
+                elif event.type == KEYUP:   #Absatz: Begrenzung damit das Bmp nicht aus dem Bild geht  
                     if event.key == K_LEFT or event.key == K_RIGHT:
                         self.dog.direction = 0
                     elif event.key == K_UP or event.key == K_DOWN:
                         self.dog.direction2 = 0
 
-                    if event.key == K_SPACE:
+                    if event.key == K_SPACE:    #Absatz: Beim drücken von Space zufälliger Position des Bmp
                         self.dog.rect.left = random.randint(0, (self.settings.width-110))
                         self.dog.rect.top = random.randint(0, (self.settings.height-60))
 
