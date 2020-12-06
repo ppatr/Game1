@@ -1,6 +1,7 @@
 import pygame   #importiert die Pygamme Bibliothek in das Skript   
 import os   
-from pygame.constants import (QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_LEFT, K_RIGHT, K_UP, K_DOWN)  #importiert bestimmte Konstanten aus dem OS Modul in das Skript
+from pygame.constants import (QUIT, KEYDOWN, KEYUP, K_ESCAPE, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_SPACE)  #importiert bestimmte Konstanten aus dem OS Modul in das Skript
+import random
 
 class Settings(object):
     def __init__(self):
@@ -29,20 +30,22 @@ class Dog(pygame.sprite.Sprite):    #Objekt Dog
         self.direction = 0
         self.direction2 = 0
         self.speed = 5
+        
+
+        
 
     def update(self):
         newleft = self.rect.left + (self.direction * self.speed)
         newright = newleft + self.rect.width
         newtop = self.rect.top + (self.direction2 * self.speed)
         newbottom = newtop + self.rect.height
+        direction3 = 0
         
         if newleft > 0 and newright < settings.width:
             self.rect.left = newleft
         if newtop > 0 and newbottom < settings.height:
             self.rect.top = newtop
         
-        
-
 class Game(object):
     def __init__(self, pygame, settings):
         self.pygame = pygame
@@ -84,6 +87,9 @@ class Game(object):
                     elif event.key == K_UP or event.key == K_DOWN:
                         self.dog.direction2 = 0
 
+                    if event.key == K_SPACE:
+                        self.dog.rect.left = random.randint(0, (self.settings.width-110))
+                        self.dog.rect.top = random.randint(0, (self.settings.height-60))
 
             self.update()
             self.draw()
